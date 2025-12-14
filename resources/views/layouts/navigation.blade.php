@@ -3,15 +3,24 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ Auth::user()->role === 'user' ? url('/') : route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    
+                    @if(Auth::user()->role === 'user')
+                        <x-nav-link :href="url('/')" :active="request()->is('/')">
+                            {{ __('Beranda') }}
+                        </x-nav-link>
+                        
+                        @else
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 
@@ -33,7 +42,6 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
                         <x-dropdown-link :href="route('about')">
                             {{ __('Tentang Kami') }}
                         </x-dropdown-link>
@@ -67,9 +75,17 @@
 
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            
+            @if(Auth::user()->role === 'user')
+                <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
+                    {{ __('Beranda') }}
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+            @endif
+
         </div>
 
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -82,7 +98,6 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
                 <x-responsive-nav-link :href="route('about')">
                     {{ __('Tentang Kami') }}
                 </x-responsive-nav-link>
@@ -92,7 +107,6 @@
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">

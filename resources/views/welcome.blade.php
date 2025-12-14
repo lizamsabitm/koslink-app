@@ -346,15 +346,27 @@
     </div>
 
     <div class="container mb-5">
-        <div class="owner-banner text-center position-relative overflow-hidden">
-            <div class="position-absolute top-0 start-0 bg-primary opacity-25 rounded-circle" style="width: 200px; height: 200px; transform: translate(-50%, -50%);"></div>
-            <div class="position-relative z-1">
-                <h2 class="fw-bold mb-3">Punya Kos Kosong?</h2>
-                <p class="mb-4 text-white-50">Bergabunglah dengan 10+ Juragan Kos lainnya dan nikmati kemudahan kelola bisnis kos.</p>
+    <div class="owner-banner text-center position-relative overflow-hidden">
+        <div class="position-absolute top-0 start-0 bg-primary opacity-25 rounded-circle" style="width: 200px; height: 200px; transform: translate(-50%, -50%);"></div>
+        <div class="position-relative z-1">
+            <h2 class="fw-bold mb-3">Punya Kos Kosong?</h2>
+            <p class="mb-4 text-white-50">Bergabunglah dengan Juragan Kos lainnya dan nikmati kemudahan kelola bisnis kos.</p>
+            
+            {{-- LOGIKA TAMPILAN --}}
+            @guest
                 <a href="{{ route('register') }}" class="btn btn-warning fw-bold text-dark px-5 py-2 rounded-pill shadow">Daftar Jadi Juragan</a>
-            </div>
+            @endguest
+
+            @auth
+                <p class="text-white fw-bold fs-5 mt-3">
+                    Ayo kelola bisnis kosmu bersama KosLink!
+                </p>
+            @endauth
+            {{-- BATAS LOGIKA --}}
+
         </div>
     </div>
+</div>
 
     <footer>
         <div class="container">
