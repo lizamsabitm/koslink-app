@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController; // <--- Tambahkan Baris Ini (Panggil Pelayan)
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+// --- TAMBAHAN UNTUK DARURAT ADMIN ---
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 // KEMBALIKAN KE CONTROLLER KITA (Agar data $kos terbawa lagi)
 Route::get('/', [HomeController::class, 'index']);
@@ -85,3 +88,22 @@ Route::get('/jelajahi', [App\Http\Controllers\HomeController::class, 'explore'])
 // HALAMAN STATIS (TENTANG KAMI & SYARAT)
 Route::get('/tentang-kami', [App\Http\Controllers\PageController::class, 'about'])->name('about');
 Route::get('/syarat-ketentuan', [App\Http\Controllers\PageController::class, 'terms'])->name('terms');
+
+// ==========================================================
+// 🚨 EMERGENCY ROUTE: BUAT ADMIN OTOMATIS 🚨
+// ==========================================================
+Route::get('/force-admin', function () {
+    // 1. Hapus admin lama biar bersih
+    User::where('email', 'admin@koslink.com')->delete();
+    
+    // 2. Buat admin baru yang PASTI Valid
+    $user = new User();
+    $user->name = 'Super Admin';
+    $user->email = 'admin@koslink.com';
+    $user->password = Hash::make('password'); // Passwordnya: password
+    $user->role = 'admin';
+    $user->save();
+    
+    return 'AKUN ADMIN BERHASIL DIBUAT! Silakan Login dengan password: password';
+});
+// ==========================================================
