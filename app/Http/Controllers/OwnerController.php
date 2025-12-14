@@ -28,10 +28,9 @@ class OwnerController extends Controller
             'nama_kos' => 'required|string|max:255',
             'jenis_kos' => 'required|string|in:Putra,Putri,Campur',
             'harga_per_bulan' => 'required|numeric',
-            'foto_utama' => 'required|image|max:2048', // Max 2MB
+            'foto_utama' => 'required|image|max:2048',
             'alamat' => 'required|string',
             'stok_kamar' => 'required|integer|min:1',
-            // 🔥 VALIDASI BARU: KOORDINAT PETA 🔥
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
         ]);
@@ -48,8 +47,7 @@ class OwnerController extends Controller
             'alamat' => $request->alamat,
             'deskripsi' => $request->deskripsi,
             'foto_utama' => 'storage/' . $path,
-            'status' => 'pending', // Default pending
-            // 🔥 SIMPAN KOORDINAT 🔥
+            'status' => 'pending',
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
         ]);
@@ -152,7 +150,6 @@ class OwnerController extends Controller
             'harga_per_bulan' => 'required|numeric',
             'stok_kamar' => 'required|integer',
             'alamat' => 'required|string',
-            // 🔥 Validasi Koordinat (Nullable, barangkali gak digeser) 🔥
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
         ]);

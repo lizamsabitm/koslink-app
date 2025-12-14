@@ -80,8 +80,8 @@
                                                         @csrf
                                                         @method('PATCH')
                                                         <input type="hidden" name="status" value="LUNAS">
-                                                        <button class="w-full bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded text-xs shadow transition font-bold">
-                                                            ✅ Sah / Lunas
+                                                        <button class="w-full bg-emerald-600 hover:bg-green-700 text-white py-1 px-3 rounded text-xs shadow transition font-bold">
+                                                            Sah / Lunas
                                                         </button>
                                                     </form>
 
@@ -90,7 +90,7 @@
                                                         @method('PATCH')
                                                         <input type="hidden" name="status" value="DITOLAK">
                                                         <button class="w-full bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded text-xs shadow transition font-bold">
-                                                            ❌ Tolak (Salah)
+                                                            Tolak (Salah)
                                                         </button>
                                                     </form>
                                                 </div>

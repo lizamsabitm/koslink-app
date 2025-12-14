@@ -9,12 +9,12 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        // Mulai Query Dasar (Hanya yang Approved)
+        // Hanya yang Approved
         $query = BoardingHouse::where('status', 'approved')
         ->with(['user', 'rooms'])
         ->withAvg('reviews', 'rating');
 
-        // --- LOGIKA 1: PENCARIAN KEYWORD ---
+        // PENCARIAN KEYWORD 
         if ($request->filled('keyword')) {
             $query->where(function($q) use ($request) {
                 $q->where('nama_kos', 'like', '%'.$request->keyword.'%')
@@ -22,7 +22,7 @@ class HomeController extends Controller
             });
         }
 
-        // --- LOGIKA 2: FILTER RANGE HARGA (Dari Banner) ---
+        // FILTER RANGE HARGA (Dari Banner) 
         if ($request->filled('price')) {
             $query->whereHas('rooms', function($q) use ($request) {
                 if($request->price == '1') { // 500rb - 1jt
@@ -35,12 +35,12 @@ class HomeController extends Controller
             });
         }
 
-        // --- LOGIKA 3: FILTER JENIS KOS (Putra/Putri/Campur) ---
+        // FILTER JENIS KOS (Putra/Putri/Campur)
         if ($request->filled('jenis') && $request->jenis != 'Semua') {
             $query->where('jenis_kos', $request->jenis);
         }
 
-        // --- LOGIKA 4: SORTING (Termurah/Termahal) ---
+        // SORTING (Termurah/Termahal) 
         if ($request->filled('sort')) {
             // Kita perlu join tabel rooms untuk sorting berdasarkan harga
             $query->join('rooms', 'boarding_houses.id', '=', 'rooms.boarding_house_id')
@@ -52,7 +52,7 @@ class HomeController extends Controller
             $query->latest();
         }
 
-        // --- PENENTUAN TAMPILAN (SEARCH vs DEFAULT) ---
+        // PENENTUAN TAMPILAN (SEARCH vs DEFAULT) 
         // Cek apakah user sedang mencari sesuatu?
         $isSearching = $request->anyFilled(['keyword', 'price', 'jenis', 'sort']);
 

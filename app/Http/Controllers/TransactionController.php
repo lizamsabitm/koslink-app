@@ -15,7 +15,7 @@ class TransactionController extends Controller
     {
         // 1. Cari kos, tapi sekalian bawa data Pemilik & Rekening Bank-nya
         $kos = BoardingHouse::where('slug', $slug)
-                ->with(['user.paymentMethods']) // <--- INI PENTING (Load Data Rekening)
+                ->with(['user.paymentMethods'])
                 ->firstOrFail();
         
         // 2. Ambil kamar
@@ -40,7 +40,7 @@ class TransactionController extends Controller
         $request->validate([
             'room_id' => 'required|exists:rooms,id',
             'start_date' => 'required|date',
-            'duration' => 'required|integer|min:1|max:12', // Minimal 1 bulan
+            'duration' => 'required|integer|min:1|max:12',
         ]);
 
         // Ambil data kamar untuk hitung harga
@@ -56,12 +56,12 @@ class TransactionController extends Controller
 
         // SIMPAN KE DATABASE TRANSAKSI
         Transaction::create([
-            'user_id' => Auth::id(),        // Siapa yang nyewa?
-            'room_id' => $kamar->id,        // Kamar mana?
+            'user_id' => Auth::id(),        
+            'room_id' => $kamar->id,        
             'tanggal_mulai' => $request->start_date,
             'durasi_sewa' => $request->duration,
             'total_harga' => $totalHarga,
-            'status' => 'MENUNGGU',         // Status awal
+            'status' => 'MENUNGGU',       
         ]);
 
         // KURANGI STOK KAMAR OTOMATIS
@@ -77,7 +77,7 @@ class TransactionController extends Controller
     {
         // Ambil semua transaksi milik user yang sedang login
         $transaksi = Transaction::where('user_id', Auth::id())
-                        ->with(['room.boardingHouse']) // Bawa data kosnya juga
+                        ->with(['room.boardingHouse'])
                         ->latest()
                         ->get();
 
@@ -88,7 +88,7 @@ class TransactionController extends Controller
     {
         // 1. Validasi (Harus ada file gambar)
         $request->validate([
-            'bukti_bayar' => 'required|image|max:2048', // Max 2MB
+            'bukti_bayar' => 'required|image|max:2048',
         ]);
 
         // 2. Cari transaksi milik user ini
@@ -102,7 +102,7 @@ class TransactionController extends Controller
         // 4. Update database
         $transaksi->update([
             'bukti_bayar' => 'storage/' . $path,
-            'status' => 'MENUNGGU VERIFIKASI' // Ganti status biar Juragan tahu
+            'status' => 'MENUNGGU VERIFIKASI'
         ]);
 
         return back()->with('success', 'Bukti bayar berhasil diupload! Tunggu konfirmasi pemilik kos.');

@@ -73,9 +73,9 @@
                                         @elseif($item->status == 'MENUNGGU VERIFIKASI')
                                             <span class="badge bg-info text-dark mb-2">Menunggu Konfirmasi</span>
                                         @elseif($item->status == 'LUNAS')
-                                            <span class="badge bg-success mb-2">LUNAS / AKTIF ✅</span>
+                                            <span class="badge bg-success mb-2">LUNAS / AKTIF</span>
                                         @elseif($item->status == 'DITOLAK')
-                                            <span class="badge bg-danger mb-2">Ditolak ❌</span>
+                                            <span class="badge bg-danger mb-2">DITOLAK</span>
                                         @endif
 
                                         <h5 class="fw-bold text-primary mb-2">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</h5>

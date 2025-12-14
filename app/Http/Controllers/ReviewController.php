@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
-use App\Models\Transaction; // PENTING
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller

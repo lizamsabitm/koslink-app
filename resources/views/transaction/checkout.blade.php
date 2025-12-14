@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             
-            <h2 class="font-bold text-2xl mb-6 text-gray-800">⚡ Konfirmasi Sewa</h2>
+            <h2 class="font-bold text-2xl mb-6 text-gray-950">Konfirmasi Sewa</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                                <h4 class="font-bold text-blue-800 mb-2">🏧 Informasi Pembayaran</h4>
+                                <h4 class="font-bold text-blue-800 mb-2">Informasi Pembayaran</h4>
                                 <p class="text-sm text-gray-600 mb-3">Silakan transfer ke salah satu rekening pemilik kos berikut:</p>
                                 
                                 @if($rekeningJuragan->isEmpty())

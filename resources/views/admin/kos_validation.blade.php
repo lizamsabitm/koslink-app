@@ -49,8 +49,8 @@
                                         <form action="{{ route('admin.kos.approve', $kos->slug) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" name="action" value="approve" class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-xs shadow transition">
-                                                ✅ Approve
+                                            <button type="submit" name="action" value="approve" class="bg-emerald-600 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-xs shadow transition">
+                                                Approve
                                             </button>
                                         </form>
 
@@ -58,7 +58,7 @@
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" name="action" value="reject" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-xs shadow transition">
-                                                ❌ Reject
+                                                Reject
                                             </button>
                                         </form>
                                     </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User; // PENTING: Panggil Model User
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\BoardingHouse;
 use App\Models\Transaction;
@@ -73,7 +73,6 @@ class AdminController extends Controller
     public function transactions()
     {
         // Ambil SEMUA transaksi, urutkan dari yang terbaru
-        // Kita pakai 'eager loading' (with) biar query-nya cepat
         $transaksi = Transaction::with(['user', 'room.boardingHouse.user'])->latest()->get();
 
         return view('admin.transactions', compact('transaksi'));

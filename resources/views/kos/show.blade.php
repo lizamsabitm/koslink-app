@@ -76,7 +76,7 @@
 
                     @if($kos->latitude && $kos->longitude)
                         <hr>
-                        <h5 class="fw-bold mt-4 mb-3">📍 Lokasi Kos</h5>
+                        <h5 class="fw-bold mt-4 mb-3">Lokasi Kos</h5>
                         <div id="map-detail" class="border"></div>
                         <a href="https://www.google.com/maps/search/?api=1&query={{ $kos->latitude }},{{ $kos->longitude }}" target="_blank" class="btn btn-outline-primary btn-sm mt-2 rounded-pill fw-bold">
                             <i class="fas fa-map-marked-alt me-1"></i> Buka di Google Maps
