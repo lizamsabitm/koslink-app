@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('boarding_houses', function (Blueprint $table) {
             $table->id();
             // --- INI KOLOM BARU UNTUK PROFIL KOS ---
-            $table->string('nama_kos'); // Nama Kos (Sesuai PDF)
+            $table->string('nama_kos');
+            $table->string('jenis_kos');
             $table->string('slug')->nullable(); // Untuk link URL
             
             // Ini menghubungkan Kos dengan Pemiliknya (User ID)
