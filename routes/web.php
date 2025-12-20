@@ -107,3 +107,16 @@ Route::get('/force-admin', function () {
     return 'AKUN ADMIN BERHASIL DIBUAT! Silakan Login dengan password: password';
 });
 // ==========================================================
+// ==========================================================
+// 🚨 EMERGENCY ROUTE: PERBAIKI STRUKTUR TABEL TRANSAKSI 🚨
+// ==========================================================
+Route::get('/fix-database-status', function () {
+    try {
+        // Kita ubah kolom 'status' jadi VARCHAR(50) biar bisa nampung tulisan apa aja
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE transactions MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'MENUNGGU'");
+        
+        return "SUKSES! Tabel Transaksi sudah diperbaiki. Kolom status sekarang fleksibel.";
+    } catch (\Exception $e) {
+        return "Gagal memperbaiki: " . $e->getMessage();
+    }
+});
