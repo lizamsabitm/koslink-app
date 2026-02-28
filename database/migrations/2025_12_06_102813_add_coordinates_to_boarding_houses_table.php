@@ -12,8 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('boarding_houses', function (Blueprint $table) {
-            // Tambahkan kolom Latitude & Longitude setelah kolom alamat
-            // Kita buat 'nullable' supaya kos lama yang belum punya peta tidak error
             $table->double('latitude')->nullable()->after('alamat');
             $table->double('longitude')->nullable()->after('latitude');
         });
@@ -25,7 +23,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('boarding_houses', function (Blueprint $table) {
-            // Kalau di-rollback, hapus kolomnya
             $table->dropColumn(['latitude', 'longitude']);
         });
     }

@@ -11,15 +11,12 @@ class ReviewController extends Controller
 {
     public function store(Request $request)
     {
-        // 1. Validasi Input
         $request->validate([
             'boarding_house_id' => 'required|exists:boarding_houses,id',
             'rating' => 'required|integer|min:1|max:5',
             'body' => 'nullable|string|max:500',
         ]);
 
-        // 2. CEK KEAMANAN: Apakah user beneran punya transaksi LUNAS di kos ini?
-        // (Supaya orang asing gak bisa asal kasih bintang 1)
         $cekTransaksi = Transaction::where('user_id', auth()->id())
                         ->where('status', 'LUNAS')
                         ->whereHas('room', function($q) use ($request) {
@@ -30,8 +27,6 @@ class ReviewController extends Controller
         if (!$cekTransaksi) {
             return back()->with('error', 'Eits! Kamu harus punya transaksi LUNAS di kos ini untuk memberi ulasan.');
         }
-
-        // 3. Simpan Ulasan
         Review::create([
             'user_id' => auth()->id(),
             'boarding_house_id' => $request->boarding_house_id,

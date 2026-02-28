@@ -9,7 +9,6 @@ class Room extends Model
 {
     use HasFactory;
 
-    // IZINKAN KOLOM INI DIISI
     protected $fillable = [
         'boarding_house_id',
         'nama_kamar',

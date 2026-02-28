@@ -11,13 +11,11 @@ class Review extends Model
 
     protected $fillable = ['user_id', 'boarding_house_id', 'rating', 'body'];
 
-    // Relasi: Review ini milik siapa?
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi: Review ini untuk kos mana?
     public function boardingHouse()
     {
         return $this->belongsTo(BoardingHouse::class);

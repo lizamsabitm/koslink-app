@@ -19,8 +19,6 @@ return new class extends Migration
             $table->text('fasilitas'); 
             $table->integer('stok_kamar'); 
             $table->string('foto_kamar')->nullable();
-
-            // 👇👇👇 TAMBAHKAN BARIS INI DI SINI 👇👇👇
             $table->boolean('is_available')->default(true); 
 
             $table->timestamps();

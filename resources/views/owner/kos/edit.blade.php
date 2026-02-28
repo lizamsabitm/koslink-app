@@ -138,46 +138,37 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // 1. Ambil Koordinat Lama dari Database (Atau default Monas jika kosong)
-            // Tanda ?? artinya: Kalau datanya null, pakai angka sebelah kanan
             var savedLat = {{ $kos->latitude ?? -6.175392 }};
             var savedLng = {{ $kos->longitude ?? 106.827153 }};
 
-            // 2. Inisialisasi Peta di posisi lama
             var map = L.map('map').setView([savedLat, savedLng], 15);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
 
-            // 3. Taruh Marker di posisi lama
             var marker = L.marker([savedLat, savedLng], {
-                draggable: true // Boleh digeser
+                draggable: true 
             }).addTo(map);
 
-            // Fungsi Update Input
             function updateInput(lat, lng) {
                 document.getElementById('latitude').value = lat;
                 document.getElementById('longitude').value = lng;
             }
 
-            // Saat marker digeser, update input
             marker.on('dragend', function (e) {
                 var lat = marker.getLatLng().lat;
                 var lng = marker.getLatLng().lng;
                 updateInput(lat, lng);
             });
 
-            // Saat peta diklik, pindahkan marker
             map.on('click', function(e) {
                 var lat = e.latlng.lat;
                 var lng = e.latlng.lng;
                 marker.setLatLng([lat, lng]); 
                 updateInput(lat, lng); 
             });
-            
-            // Trik agar peta tidak blank
+
             setTimeout(function(){ map.invalidateSize(); }, 500);
         });
     </script>

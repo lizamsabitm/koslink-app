@@ -14,9 +14,7 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+
     public function create(): View
     {
         return view('auth.register');
@@ -48,12 +46,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-       // 1. Kalau Juragan -> Antar ke Dashboard
         if ($user->role === 'owner') {
             return redirect(route('dashboard', absolute: false));
         }
 
-        // 2. Kalau Penyewa -> Antar ke Halaman Utama (Home)
         return redirect('/');
     }
 }

@@ -11,7 +11,6 @@
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
-        /* Paksa tinggi peta agar muncul */
         #map-detail { height: 300px; width: 100%; border-radius: 12px; z-index: 1; }
     </style>
 </head>
@@ -181,19 +180,15 @@
     @if($kos->latitude && $kos->longitude)
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-        // Ambil koordinat dari Database PHP
         var lat = {{ $kos->latitude }};
         var lng = {{ $kos->longitude }};
 
-        // Inisialisasi Peta
-        var map = L.map('map-detail').setView([lat, lng], 15); // Zoom level 15 (cukup dekat)
+        var map = L.map('map-detail').setView([lat, lng], 15); 
 
-        // Tile Layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Marker (Tanpa draggable, karena cuma view)
         L.marker([lat, lng]).addTo(map)
             .bindPopup("<b>{{ $kos->nama_kos }}</b><br>Lokasi Kos di sini.")
             .openPopup();

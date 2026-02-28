@@ -3,9 +3,9 @@
     
     <style>
         #map {
-            height: 350px; /* Tinggi Paksa */
-            width: 100%;   /* Lebar Paksa */
-            z-index: 1;    /* Pastikan di atas layer lain */
+            height: 350px; 
+            width: 100%;   
+            z-index: 1;    
             border-radius: 8px;
             border: 2px solid #bfdbfe;
         }
@@ -124,47 +124,38 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     
     <script>
-        // Pastikan halaman sudah siap (DOM Ready) baru jalankan peta
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // 1. Inisialisasi Peta (Default: Jakarta / Monas)
+ 
             var map = L.map('map').setView([-6.175392, 106.827153], 13);
 
-            // 2. Tampilkan Gambar Peta (Tile Layer)
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
 
-            // 3. Tambah Marker yang bisa digeser
             var marker = L.marker([-6.175392, 106.827153], {
                 draggable: true
             }).addTo(map);
 
-            // Fungsi Update Input Koordinat
             function updateInput(lat, lng) {
                 document.getElementById('latitude').value = lat;
                 document.getElementById('longitude').value = lng;
             }
 
-            // Set nilai awal
             updateInput(-6.175392, 106.827153);
 
-            // Event: Saat marker digeser
             marker.on('dragend', function (e) {
                 var lat = marker.getLatLng().lat;
                 var lng = marker.getLatLng().lng;
                 updateInput(lat, lng);
             });
 
-            // Event: Saat peta diklik
             map.on('click', function(e) {
                 var lat = e.latlng.lat;
                 var lng = e.latlng.lng;
                 marker.setLatLng([lat, lng]); 
                 updateInput(lat, lng); 
             });
-            
-            // Trik khusus agar peta merender ulang ukurannya saat dimuat
+
             setTimeout(function(){ map.invalidateSize(); }, 500);
         });
     </script>

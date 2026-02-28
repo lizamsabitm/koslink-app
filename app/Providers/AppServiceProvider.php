@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL; // 1. Kita tambahkan baris ini biar kenal URL
+use Illuminate\Support\Facades\URL; 
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // 2. Kode paksa HTTPS ditaruh di sini:
         if($this->app->environment('production')) {
             URL::forceScheme('https');
         }

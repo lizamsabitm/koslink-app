@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            
-            // PENTING: Rekening ini milik siapa?
+
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            
-            // Detail Rekening
-            $table->string('nama_bank');      // Misal: BCA, BRI, DANA
-            $table->string('nomor_rekening'); // Misal: 1234567890
-            $table->string('atas_nama');      // Misal: Budi Santoso
+
+            $table->string('nama_bank');      
+            $table->string('nomor_rekening'); 
+            $table->string('atas_nama');     
             
             $table->timestamps();
         });
