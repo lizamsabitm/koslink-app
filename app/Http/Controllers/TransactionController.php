@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Cloudinary\Cloudinary; // <-- INI TAMBAHANNYA
 
 class TransactionController extends Controller
 {
@@ -79,12 +80,21 @@ class TransactionController extends Controller
                         ->where('user_id', Auth::id())
                         ->firstOrFail();
 
-        $uploadedFileUrl = cloudinary()->upload($request->file('bukti_bayar')->getRealPath(), ['folder' => 'koslink/bukti-bayar'])->getSecurePath();
+        // === JURUS ULTIMATE UPLOAD BUKTI BAYAR ===
+        // 1. Panggil koneksi Cloudinary
+        $cloudinaryConfig = new Cloudinary(env('CLOUDINARY_URL'));
 
-            $transaksi->update([
-             'bukti_bayar' => $uploadedFileUrl,
-                'status' => 'MENUNGGU VERIFIKASI'
-                    ]);
+        // 2. Upload fotonya secara manual
+        $uploadResult = $cloudinaryConfig->uploadApi()->upload($request->file('bukti_bayar')->getRealPath(), [
+            'folder' => 'koslink/bukti-bayar'
+        ]);
+
+        // 3. Update status dan URL foto di database
+        $transaksi->update([
+             'bukti_bayar' => $uploadResult['secure_url'],
+             'status' => 'MENUNGGU VERIFIKASI'
+        ]);
+        // =========================================
 
         return back()->with('success', 'Bukti bayar berhasil diupload! Tunggu konfirmasi pemilik kos.');
     }

@@ -8,6 +8,7 @@ use App\Models\BoardingHouse;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Cloudinary\Cloudinary;
 
 class OwnerController extends Controller
 {
@@ -21,6 +22,7 @@ class OwnerController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'nama_kos' => 'required|string|max:255',
             'jenis_kos' => 'required|string|in:Putra,Putri,Campur',
@@ -32,7 +34,16 @@ class OwnerController extends Controller
             'longitude' => 'required|numeric',
         ]);
 
-        $uploadedFileUrl = cloudinary()->upload($request->file('foto_utama')->getRealPath(), ['folder' => 'koslink/kos-images'])->getSecurePath();
+        // 1. Kita buat koneksi paksa menggunakan URL dari .env
+        $cloudinaryConfig = new Cloudinary(env('CLOUDINARY_URL'));
+
+// 2. Kita upload fotonya secara manual
+        $uploadResult = $cloudinaryConfig->uploadApi()->upload($request->file('foto_utama')->getRealPath    (), [
+            'folder' => 'koslink/kos-images'
+        ]);
+
+// 3. Kita ambil link URL foto yang sudah jadi
+        $uploadedFileUrl = $uploadResult['secure_url'];
 
         $kos = BoardingHouse::create([
     'user_id' => auth()->id(),
@@ -153,9 +164,18 @@ class OwnerController extends Controller
         $kos->update($dataUpdate);
 
         if ($request->hasFile('foto_utama')) {
-    $uploadedFileUrl = cloudinary()->upload($request->file('foto_utama')->getRealPath(), ['folder' => 'koslink/kos-images'])->getSecurePath();
-    $kos->update(['foto_utama' => $uploadedFileUrl]);
+    // 1. Panggil koneksi Cloudinary
+            $cloudinaryConfig = new Cloudinary(env('CLOUDINARY_URL'));
+            
+            // 2. Upload foto barunya
+            $uploadResult = $cloudinaryConfig->uploadApi()->upload($request->file('foto_utama')->getRealPath(), [
+                'folder' => 'koslink/kos-images'
+            ]);
+            
+            // 3. Update URL foto di database
+            $kos->update(['foto_utama' => $uploadResult['secure_url']]);
         }
+        // ==============================================
 
         $fasilitasString = implode(', ', $request->fasilitas ?? []);
         
