@@ -79,7 +79,7 @@ class TransactionController extends Controller
                         ->where('user_id', Auth::id())
                         ->firstOrFail();
 
-        $uploadedFileUrl = $request->file('bukti_bayar')->storeOnCloudinary('koslink/bukti-bayar')->getSecurePath();
+        $uploadedFileUrl = cloudinary()->upload($request->file('bukti_bayar')->getRealPath(), ['folder' => 'koslink/bukti-bayar'])->getSecurePath();
 
             $transaksi->update([
              'bukti_bayar' => $uploadedFileUrl,

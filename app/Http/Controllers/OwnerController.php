@@ -32,7 +32,7 @@ class OwnerController extends Controller
             'longitude' => 'required|numeric',
         ]);
 
-        $uploadedFileUrl = $request->file('foto_utama')->storeOnCloudinary('koslink/kos-images')->getSecurePath();
+        $uploadedFileUrl = cloudinary()->upload($request->file('foto_utama')->getRealPath(), ['folder' => 'koslink/kos-images'])->getSecurePath();
 
         $kos = BoardingHouse::create([
     'user_id' => auth()->id(),
@@ -153,7 +153,7 @@ class OwnerController extends Controller
         $kos->update($dataUpdate);
 
         if ($request->hasFile('foto_utama')) {
-    $uploadedFileUrl = $request->file('foto_utama')->storeOnCloudinary('koslink/kos-images')->getSecurePath();
+    $uploadedFileUrl = cloudinary()->upload($request->file('foto_utama')->getRealPath(), ['folder' => 'koslink/kos-images'])->getSecurePath();
     $kos->update(['foto_utama' => $uploadedFileUrl]);
         }
 
