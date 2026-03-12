@@ -35,6 +35,10 @@ RUN npm install
 RUN npm run build
 # ======================================================
 
+# === INI BAGIAN BARU: MEMBUAT JEMBATAN FOTO ===
+RUN php artisan storage:link
+# ==============================================
+
 # Atur izin folder agar Laravel bisa upload gambar dan bikin cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
