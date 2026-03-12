@@ -32,20 +32,20 @@ class OwnerController extends Controller
             'longitude' => 'required|numeric',
         ]);
 
-        $path = $request->file('foto_utama')->store('kos-images', 'public');
+        $uploadedFileUrl = $request->file('foto_utama')->storeOnCloudinary('koslink/kos-images')->getSecurePath();
 
         $kos = BoardingHouse::create([
-            'user_id' => auth()->id(),
-            'nama_kos' => $request->nama_kos,
-            'jenis_kos' => $request->jenis_kos,
-            'slug' => Str::slug($request->nama_kos) . '-' . time(),
-            'alamat' => $request->alamat,
-            'deskripsi' => $request->deskripsi,
-            'foto_utama' => 'storage/' . $path,
-            'status' => 'pending',
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-        ]);
+    'user_id' => auth()->id(),
+    'nama_kos' => $request->nama_kos,
+    'jenis_kos' => $request->jenis_kos,
+    'slug' => Str::slug($request->nama_kos) . '-' . time(),
+    'alamat' => $request->alamat,
+    'deskripsi' => $request->deskripsi,
+    'foto_utama' => $uploadedFileUrl,
+    'status' => 'pending',
+    'latitude' => $request->latitude,
+    'longitude' => $request->longitude,
+            ]);
 
     
         $fasilitasString = implode(', ', $request->fasilitas ?? []);
@@ -153,8 +153,8 @@ class OwnerController extends Controller
         $kos->update($dataUpdate);
 
         if ($request->hasFile('foto_utama')) {
-            $path = $request->file('foto_utama')->store('kos-images', 'public');
-            $kos->update(['foto_utama' => 'storage/' . $path]);
+    $uploadedFileUrl = $request->file('foto_utama')->storeOnCloudinary('koslink/kos-images')->getSecurePath();
+    $kos->update(['foto_utama' => $uploadedFileUrl]);
         }
 
         $fasilitasString = implode(', ', $request->fasilitas ?? []);

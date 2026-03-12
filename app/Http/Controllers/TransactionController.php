@@ -79,12 +79,12 @@ class TransactionController extends Controller
                         ->where('user_id', Auth::id())
                         ->firstOrFail();
 
-        $path = $request->file('bukti_bayar')->store('bukti-bayar', 'public');
+        $uploadedFileUrl = $request->file('bukti_bayar')->storeOnCloudinary('koslink/bukti-bayar')->getSecurePath();
 
-        $transaksi->update([
-            'bukti_bayar' => 'storage/' . $path,
-            'status' => 'MENUNGGU VERIFIKASI'
-        ]);
+            $transaksi->update([
+             'bukti_bayar' => $uploadedFileUrl,
+                'status' => 'MENUNGGU VERIFIKASI'
+                    ]);
 
         return back()->with('success', 'Bukti bayar berhasil diupload! Tunggu konfirmasi pemilik kos.');
     }
