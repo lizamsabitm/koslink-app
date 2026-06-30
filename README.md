@@ -49,7 +49,7 @@ Finding a boarding house in Indonesia is still largely word-of-mouth or limited 
 | Authentication | Laravel Breeze |
 | Database | MySQL |
 | Map Integration | Leaflet.js |
-| Deployment | Render |
+| Deployment | Render, Aiven, Cloudinary |
 
 ---
 
