@@ -7,7 +7,7 @@ A full-stack web application that connects boarding house (kos) owners with pros
 ![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql)
 ![Status](https://img.shields.io/badge/Status-Deployed-success)
 
-**[Live Demo]** — *https://koslink-app.onrender.com/*
+**Live Demo** — *https://koslink-app.onrender.com/*
 
 ---
 
