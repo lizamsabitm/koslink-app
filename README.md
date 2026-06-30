@@ -30,13 +30,13 @@ Finding a boarding house in Indonesia is still largely word-of-mouth or limited 
 ## Preview
 
 ### Tenant Dashboard
-![Dashboard Penyewa](public/image/dashboardpenyewa.png)
+![Dashboard Penyewa](public/img/dashboardpenyewa.png)
 
 ### Owner Dashboard
-![Dashboard Pemilik](public/image/dashboardpemilik.png)
+![Dashboard Pemilik](public/img/dashboardpemilik.png)
 
 ### Admin Dashboard
-![Dashboard Admin](public/image/dashboardadmin.png)
+![Dashboard Admin](public/img/dashboardadmin.png)
 
 ---
 
